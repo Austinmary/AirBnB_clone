@@ -1,64 +1,40 @@
 #!/usr/bin/python3
-"""Test suits for place module"""
+"""Test suite for the Place class of models.place"""
 import unittest
+
+from models.base_model import BaseModel
 from models.place import Place
 
 
 class TestPlace(unittest.TestCase):
-    """Tests methods in place class"""
+    """Test cases against the Place class"""
 
     def setUp(self):
-        """Instance needed for testing"""
-        self.m = Place()
+        self.place = Place()
+        self.attr_list = ["name", "user_id", "city_id", "description",
+                          "number_bathrooms", "max_guest", "number_rooms",
+                          "price_by_night", "latitude", "longitude",
+                          "amenity_ids"]
 
-    def tearDown(self):
-        """removes Instance needed for testing"""
-        del self.m
+    def test_attrs_are_class_attrs(self):
+        for attr in self.attr_list:
+            self.assertTrue(hasattr(Place, attr))
 
-    def test_city_id(self):
-        """Tests city_id inputs"""
-        self.assertEqual(type((self.m).city_id), str)
+    def test_class_attrs(self):
+        self.assertIs(type(self.place.name), str)
+        self.assertIs(type(self.place.city_id), str)
+        self.assertIs(type(self.place.user_id), str)
+        self.assertIs(type(self.place.description), str)
+        self.assertIs(type(self.place.number_bathrooms), int)
+        self.assertIs(type(self.place.max_guest), int)
+        self.assertIs(type(self.place.number_rooms), int)
+        self.assertIs(type(self.place.price_by_night), int)
+        self.assertIs(type(self.place.latitude), float)
+        self.assertIs(type(self.place.longitude), float)
+        self.assertIs(type(self.place.amenity_ids), list)
 
-    def test_user_id(self):
-        """Tests user_id inputs"""
-        self.assertEqual(type((self.m).user_id), str)
+        for attr in self.attr_list:
+            self.assertFalse(bool(getattr(self.place, attr)))
 
-    def test_name(self):
-        """Tests name inputs"""
-        self.assertEqual(type((self.m).name), str)
-
-    def test_description(self):
-        """Tests description inputs"""
-        self.assertEqual(type((self.m).description), str)
-
-    def test_number_rooms(self):
-        """Tests number_rooms inputs"""
-        self.assertEqual(type((self.m).number_rooms), int)
-
-    def test_number_bathrooms(self):
-        """Tests number_bathrooms inputs"""
-        self.assertEqual(type((self.m).number_bathrooms), int)
-
-    def test_max_guest(self):
-        """Tests number_bathrooms inputs"""
-        self.assertEqual(type((self.m).max_guest), int)
-
-    def test_price_by_night(self):
-        """Tests price_by_night inputs"""
-        self.assertEqual(type((self.m).price_by_night), int)
-
-    def test_latitude(self):
-        """Tests latitude inputs"""
-        self.assertEqual(type((self.m).latitude), float)
-
-    def test_longitude(self):
-        """Tests longitude inputs"""
-        self.assertEqual(type((self.m).longitude), float)
-
-    def test_amenity_ids(self):
-        """Tests amenity_ids inputs"""
-        self.assertEqual(type((self.m).amenity_ids), list)
-
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_place_obj_is_a_subclass_of_basemodel(self):
+        self.assertTrue(issubclass(type(self.place), BaseModel))
