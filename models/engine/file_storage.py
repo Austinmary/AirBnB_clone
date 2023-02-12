@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 """
 This is the file_storage module which contains the FileStorage class
 """
